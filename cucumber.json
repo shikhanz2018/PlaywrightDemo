@@ -1,0 +1,4 @@
+{
+    "format": ["json:./allure-results/cucumber.json"]
+  }
+  

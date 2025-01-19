@@ -2,8 +2,12 @@
   "name": "gdtplaywrightdemo",
   "version": "1.0.0",
   "scripts": {
+    "test": "cucumber-js --format json:./allure-results/cucumber.json",
     "test-gdt": "npx cucumber-js --tags '@launch' --require tests/steps/*.ts --require-module ts-node/register --format @cucumber/pretty-formatter tests/features/*.feature",
-    "test-marvel": "npx cucumber-js --tags '@marvel' --require tests/steps/*.ts --require-module ts-node/register --format @cucumber/pretty-formatter tests/features/*.feature"
+    "test-marvel": "npx cucumber-js --tags '@marvel' --require tests/steps/*.ts --require-module ts-node/register --format @cucumber/pretty-formatter tests/features/*.feature",
+    "allure:generate": "allure generate allure-results --clean -o allure-report",
+    "allure:open": "allure open allure-report",
+    "allure:clean": "allure clean"
   },
   "devDependencies": {
     "@cucumber/cucumber": "^11.2.0",
@@ -13,6 +17,8 @@
     "@types/luxon": "^3.4.2",
     "@types/md5": "^2.3.5",
     "@types/node": "^22.10.7",
+    "allure-commandline": "^2.32.0",
+    "allure-cucumberjs": "^3.0.9",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   },
