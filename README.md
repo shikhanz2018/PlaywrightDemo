@@ -1,68 +1,97 @@
-"# Marvelautomation" 
+# Marvelautomation
 
-Playwright-Cucumber Testing Framework
-A robust end-to-end testing framework using Playwright and Cucumber. This setup provides a behavior-driven development (BDD) approach for testing modern web applications.
+**Playwright-Cucumber Testing Framework**  
+A robust end-to-end testing framework using Playwright and Cucumber. This setup provides a behavior-driven development (BDD) approach for testing modern web applications.  
 
-Features
-BDD support with Cucumber.
-Cross-browser testing using Playwright.
-TypeScript for robust and type-safe tests.
-Simple setup and easy to extend.
+---
 
-Getting Started
-Follow these instructions to set up and run the project locally.
+## Features
+- BDD support with Cucumber.
+- Cross-browser testing using Playwright.
+- TypeScript for robust and type-safe tests.
+- Simple setup and easy to extend.
 
-1. Clone the Repository
-Clone the repository to your local machine:
-git clone https://github.com/shikhanz2018/Marvelautomation.git
-cd <your-repo-name>
+---
 
-2. Install Dependencies
-Run the following command to install the required dependencies:
-npm install
+## Getting Started
+Follow these instructions to set up and run the project locally.  
 
-3. Install TypeScript and Dev Dependencies
-Install TypeScript, ts-node, and node types for development:
-npm install ts-node @types/node --save-dev
+### 1. Clone the Repository
+Clone the repository to your local machine:  
+```bash
+git clone https://github.com/shikhanz2018/Marvelautomation.git  
+cd Marvelautomation  
+```
 
-4. Install Playwright, Cucumber, and Chai
-Run the following to install Playwright, Cucumber, and Chai:
-npm install playwright @cucumber/cucumber @playwright/test chai
+### 2. Install Dependencies
+Run the following command to install the required dependencies:  
+```bash
+npm install  
+```
 
-5. Install Playwright Browsers
-Playwright requires specific browser binaries. Install them using:
-npx playwright install
+### 3. Install TypeScript and Dev Dependencies
+Install TypeScript, `ts-node`, and Node.js types for development:  
+```bash
+npm install ts-node @types/node --save-dev  
+```
 
+### 4. Install Playwright, Cucumber, and Chai
+Run the following to install Playwright, Cucumber, and Chai:  
+```bash
+npm install playwright @cucumber/cucumber @playwright/test chai  
+```
 
-Project Structure
-The project is organized as follows:
-.tests
-├── features/
-│   ├── marvelDashBoard.feature          # Cucumber feature file
- ── steps/
-│       └── marvelautomatedstep.ts     # Step definitions
-├                
-├── cucumber.tsconfig.json          # TypeScript config for Cucumber
-├── playwright.config.ts            # Playwright config file
-├── package.json                    # Project dependencies and scripts
-├── README.md                       # Documentation
-└── tsconfig.json                   # TypeScript config file
+### 5. Install Playwright Browsers
+Playwright requires specific browser binaries. Install them using:  
+```bash
+npx playwright install  
+```
 
+---
 
-6. Run all feature scenarios 
-npx cucumber-js
+## Project Structure
+The project is organized as follows:  
+```plaintext
+.tests/  
+├── features/  
+│   └── marvelDashBoard.feature          # Cucumber feature file  
+├── steps/  
+│   └── marvelautomatedstep.ts           # Step definitions  
+├── cucumber.js                          # TypeScript config for Cucumber  
+├── playwright.config.ts                 # Playwright config file  
+├── package.json                         # Project dependencies and scripts  
+├── README.md                            # Documentation  
+└── tsconfig.json                        # TypeScript config file  
+```
 
-7. Run specific scenarios with tags ---@freeze
-npx cucumber-js --tags "@freeze" --require tests/steps/*.ts --require-module ts-node/register --format @cucumber/pretty-formatter tests/features/*.feature
+---
 
+## Running Tests
 
-8. install allure-cucumberjs using a package manager of your choice. For example:
+### 6. Run All Feature Scenarios
+```bash
+npx cucumber-js  
+```
 
-npm install -D allure-cucumberjs
+### 7. Run Specific Scenarios with Tags
+For example, to run scenarios tagged with `@freeze`:  
+```bash
+npx cucumber-js --tags "@freeze" --require tests/steps/*.ts --require-module ts-node/register --format @cucumber/pretty-formatter tests/features/*.feature  
+```
 
-Usage
-Enable the allure-cucumberjs/reporter formatter in the Cucumber.js configuration file:
+---
 
+## Reporting with Allure
+
+### 8. Install Allure-CucumberJS
+Install `allure-cucumberjs` using a package manager:  
+```bash
+npm install -D allure-cucumberjs  
+```
+
+### Usage
+Enable the `allure-cucumberjs/reporter` formatter in the Cucumber.js configuration file:  
+```json
 {
   "default": {
     "format": [
@@ -70,18 +99,29 @@ Enable the allure-cucumberjs/reporter formatter in the Cucumber.js configuration
     ]
   }
 }
+```
 
-Alternatively, you may specify the formatter via the CLI:
-npx cucumber-js --format allure-cucumberjs/reporter
+Alternatively, specify the formatter via the CLI:  
+```bash
+npx cucumber-js --format allure-cucumberjs/reporter  
+```
 
-When the test run completes, the result files will be generated in the ./allure-results directory.
+npx cucumber-js  --format allure-cucumberjs/reporter --tags "@visibles" --require tests/steps/*.ts --require-module ts-node/register --format @cucumber/pretty-formatter tests/features/*.feature
 
-iew the report
-You need Allure Report to be installed on your machine to generate and open the report from the result files. See the installation instructions on how to get it. https://allurereport.org/docs/install/
+When the test run completes, the result files will be generated in the `./allure-results` directory.  
 
-Generate Allure Report after the tests are executed:
+---
 
-allure generate ./allure-results -o ./allure-report
-Open the generated report:
+### Viewing the Report
+You need Allure Report installed on your machine to generate and open the report. Follow the [installation instructions](https://allurereport.org/docs/install/).  
 
-allure open ./allure-report
+#### Generate Allure Report
+```bash
+allure generate ./allure-results -o ./allure-report  
+```
+
+#### Open the Report
+```bash
+allure open ./allure-report  
+```
+

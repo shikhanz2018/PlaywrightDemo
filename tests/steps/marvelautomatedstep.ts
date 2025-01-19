@@ -16,6 +16,7 @@ import md5 from "md5";
 import { DateTime } from "luxon"; // Import Luxon library for date handling
 import { CharacterApiResponse, ComicApiResponse } from "../apiinterfaces"; // Import the interfaces
 import { setDefaultTimeout } from "@cucumber/cucumber";
+import { Status } from '@cucumber/cucumber';
 
 setDefaultTimeout(40000); // Set timeout to 10 seconds (10000 milliseconds)
 
@@ -725,7 +726,7 @@ Then(
 );
 
 Then(
-  "each displayed character contains a thumbnail, name, and description \\(if available)",
+  "each displayed character contains a thumbnail, name, and description , status \\(if available)",
   async function () {
     const tableRows = page.locator("table tbody tr"); // Locator for table rows
     const rowCount = await tableRows.count();
@@ -751,6 +752,11 @@ Then(
       const description = await row.locator("td:nth-child(3)").textContent();
       // Description could be empty or null, so we just ensure it's either present or empty
       expect(description).toBeDefined();
+
+       // Validate Status (if available)
+       const status = await row.locator("td:nth-child(4)").textContent();
+       // Description could be empty or null, so we just ensure it's either present or empty
+       expect(status).toBeDefined();
     }
   }
 );
@@ -1232,25 +1238,150 @@ Then("The user navigates to the character details page", async function () {
   await page.waitForTimeout(5000);
   // Step 2: Fetch the character's name and validate
   const url = page.url();
-  expect(url).toContain('https://marvel-dashboard-seven.vercel.app/characters/');
+  expect(url).toContain(
+    "https://marvel-dashboard-seven.vercel.app/characters/"
+  );
 });
 
-When('The user clicks the back button in the browser', async () => {
+When("The user clicks the back button in the browser", async () => {
   await page.waitForTimeout(5000);
   await page.goBack();
 });
 
+Then(
+  "The app navigates back to the dashboard without freezing",
+  async function () {
+    await page.waitForTimeout(5000);
 
-Then("The app navigates back to the dashboard without freezing", async function () {
-  
-   await page.waitForTimeout(5000);
-  
-  const url = page.url();
-  expect(url).toContain('https://marvel-dashboard-seven.vercel.app/characters');
+    const url = page.url();
+    expect(url).toContain(
+      "https://marvel-dashboard-seven.vercel.app/characters"
+    );
+  }
+);
+
+
+Then("the list of Marvel characters is displayed", async function () {
+  const rows = await page.locator("table tbody tr");
+
+  if ((await rows.count()) === 0) {
+    throw new Error("No characters are displayed in the table.");
+  }
+
+  for (let rowIndex = 0; rowIndex < (await rows.count()); rowIndex++) {
+    const row = rows.nth(rowIndex);
+
+    // Validate Thumbnail column
+    const imageLocator = row.locator("td img");
+    const imageSrc = await imageLocator.getAttribute("src");
+    if (!imageSrc || !(await imageLocator.isVisible())) {
+      throw new Error(`No image found in row ${rowIndex + 1}, column: Thumbnail`);
+    }
+
+    // Validate Name column
+    const nameLocator = row.locator("td:nth-child(2)");
+    const nameText = await nameLocator.textContent();
+    if (!nameText || nameText.trim().length === 0) {
+      throw new Error(`No name found in row ${rowIndex + 1}, column: Name`);
+    }
+
+    // Validate Description column
+    const descriptionLocator = row.locator("td:nth-child(3)");
+    const descriptionText = await descriptionLocator.textContent();
+    if (!descriptionText || descriptionText.trim().length === 0) {
+      throw new Error(
+        `Description is missing in row ${rowIndex + 1}, column: Description`
+      );
+    }
+
+    // Validate Status column
+    const statusLocator = row.locator("td:nth-child(4)");
+    const statusText = await statusLocator.textContent();
+    if (!statusText || statusText.trim().length === 0) {
+      throw new Error(`Status is missing in row ${rowIndex + 1}`);
+    }
+  }
+
+  console.log("Common validation for character list passed.");
 });
 
-After(async () => {
-  if (browser) {
-    await browser.close();
+
+Then(
+  "the 'Comics' and 'Published Date' columns are visible in desktop view",
+  async function () {
+    const viewportWidth = await page.evaluate(() => window.innerWidth);
+    if (viewportWidth <= 768) {
+      throw new Error("This step is not applicable for mobile view.");
+    }
+
+    const rows = await page.locator("table tbody tr");
+
+    for (let rowIndex = 0; rowIndex < (await rows.count()); rowIndex++) {
+      const row = rows.nth(rowIndex);
+
+      // Validate Comics column
+      const comicsLocator = row.locator("td:nth-child(5)");
+      const comicsText = await comicsLocator.textContent();
+      if (!comicsText || comicsText.trim().length === 0) {
+        throw new Error(`No comics data found in row ${rowIndex + 1}`);
+      }
+
+      // Validate Published Date column
+      const publishedLocator = row.locator("td:nth-child(6)");
+      const publishedText = await publishedLocator.textContent();
+      if (!publishedText || publishedText.trim().length === 0) {
+        throw new Error(`No published date found in row ${rowIndex + 1}`);
+      }
+    }
+
+    console.log("Validation for desktop view passed.");
   }
+);
+
+Then(
+  "the Comics and Published Date columns are not visible in mobile view",
+  async function () {
+    const viewportWidth = await page.evaluate(() => window.innerWidth);
+    if (viewportWidth > 768) {
+      throw new Error("This step is not applicable for desktop view.");
+    }
+
+    const rows = await page.locator("table tbody tr");
+
+    for (let rowIndex = 0; rowIndex < (await rows.count()); rowIndex++) {
+      const row = rows.nth(rowIndex);
+
+      // Validate Comics column is not visible
+      const comicsLocator = row.locator("td:nth-child(5)");
+      const comicsVisible = await comicsLocator.isVisible();
+      if (comicsVisible) {
+        throw new Error(
+          `Comics data should not be visible in row ${rowIndex + 1} for mobile view`
+        );
+      }
+
+      // Validate Published Date column is not visible
+      const publishedLocator = row.locator("td:nth-child(6)");
+      const publishedVisible = await publishedLocator.isVisible();
+      if (publishedVisible) {
+        throw new Error(
+          `Published Date should not be visible in row ${rowIndex + 1} for mobile view`
+        );
+      }
+    }
+
+    console.log("Validation for mobile view passed.");
+  }
+);
+
+
+After(async function (scenario) {
+  const result = scenario.result; // Get the result object
+  if (result && result.status === Status.FAILED) { // Use the Status enum here
+    const screenshotPath = path.join(__dirname, '../..', 'allure-results', 'screenshots', `${scenario.pickle.name}.png`); // Path adjusted to save at project root
+    await page.screenshot({ path: screenshotPath });
+    // Optionally, attach the screenshot to Allure (if applicable)
+    // AllureReporter.addAttachment('Screenshot', screenshotPath, 'image/png');
+  }
+  await browser.close();
 });

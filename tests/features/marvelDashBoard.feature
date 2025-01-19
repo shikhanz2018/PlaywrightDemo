@@ -21,9 +21,9 @@ Feature: Marvel Dashboard
     Given The user navigates to the Marvel Dashboard home page on a mobile device
     Then The dashboard should render differently based on the device type
     Then The dashboard loads successfully
-    Then A list of Marvel characters is displayed automatically with the following details:
-      | Image | Name | Description | Status | Comics | Published |
-
+    Then the list of Marvel characters is displayed
+    And the Comics and Published Date columns are not visible in mobile view
+   
   @dynamicload
   Scenario: Dynamic loading of characters on scroll
     Given The user navigates to the Marvel Dashboard home page on a desktop device
@@ -35,8 +35,7 @@ Feature: Marvel Dashboard
     Given the characters are displayed on the dashboard home page
     When the user enters "<SearchText>" in the search bar
     Then the list updates to display characters matching the search term
-    And each displayed character contains a thumbnail, name, and description (if available)
-    # Then the list updates to display characters matching the search term and the results match the API response
+    And each displayed character contains a thumbnail, name, and description , status (if available)
     Then the lists updates to display characters matching the search term and the results match the API response
     And I fetch the character data from Marvel API
     Then get the character id from the search results matching the name and description

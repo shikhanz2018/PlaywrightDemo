@@ -1,13 +1,13 @@
 module.exports = {
   default: {
-    require: ['tests/steps/*.ts'],
-    paths: ['tests/features/*.feature'],
-    format: ['@cucumber/pretty-formatter'],
-    parallel: 1,
-    requireModule: ['ts-node/register'],
+    require: ['tests/steps/*.ts'], // Include step definitions
+    paths: ['tests/features/*.feature'], // Path to feature files
     format: [
-      "allure-cucumberjs/reporter"
+      '@cucumber/pretty-formatter', // To pretty print output
+      'allure-cucumberjs/reporter' // Allure reporter for Cucumber
     ],
-    formats: ['json:allure-results/cucumber.json'],
+    parallel: 1,
+    requireModule: ['ts-node/register'], // Use ts-node to transpile TypeScript
+    formats: ['json:allure-results/cucumber.json'], // Output in JSON format for Allure
   },
 };
