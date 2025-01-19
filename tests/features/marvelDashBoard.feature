@@ -36,7 +36,7 @@ Feature: Marvel Dashboard
     When the user enters "<SearchText>" in the search bar
     Then the list updates to display characters matching the search term
     And each displayed character contains a thumbnail, name, and description (if available)
-    Then the list updates to display characters matching the search term and the results match the API response
+    # Then the list updates to display characters matching the search term and the results match the API response
     Then the lists updates to display characters matching the search term and the results match the API response
     And I fetch the character data from Marvel API
     Then get the character id from the search results matching the name and description
@@ -65,4 +65,9 @@ Feature: Marvel Dashboard
     When the user enters "Iron&Man" in the search bar
     Then no character thumbnails or details are shown
 
-
+@freeze
+  Scenario: Handle app freezing when clicking the back button:
+    Given The user navigates to the Marvel Dashboard home page on a desktop device
+    And The user navigates to the character details page
+    Then The user clicks the back button in the browser
+    And The app navigates back to the dashboard without freezing

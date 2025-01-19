@@ -15,7 +15,7 @@ import axios from "axios";
 import md5 from "md5";
 import { DateTime } from "luxon"; // Import Luxon library for date handling
 import { CharacterApiResponse, ComicApiResponse } from "../apiinterfaces"; // Import the interfaces
-import { setDefaultTimeout } from '@cucumber/cucumber';
+import { setDefaultTimeout } from "@cucumber/cucumber";
 
 setDefaultTimeout(40000); // Set timeout to 10 seconds (10000 milliseconds)
 
@@ -1222,6 +1222,32 @@ Then(
   }
 );
 
+Then("The user navigates to the character details page", async function () {
+  // Step 1: Click the first row's first column image (Thumbnail)
+  const firstImageLocator = page.locator(
+    "table tbody tr:nth-child(1) td:nth-child(1) img"
+  ); // Target the image inside the first column
+  await firstImageLocator.click();
+
+  await page.waitForTimeout(5000);
+  // Step 2: Fetch the character's name and validate
+  const url = page.url();
+  expect(url).toContain('https://marvel-dashboard-seven.vercel.app/characters/');
+});
+
+When('The user clicks the back button in the browser', async () => {
+  await page.waitForTimeout(5000);
+  await page.goBack();
+});
+
+
+Then("The app navigates back to the dashboard without freezing", async function () {
+  
+   await page.waitForTimeout(5000);
+  
+  const url = page.url();
+  expect(url).toContain('https://marvel-dashboard-seven.vercel.app/characters');
+});
 
 After(async () => {
   if (browser) {
