@@ -1,0 +1,36 @@
+{
+  "name": "gdtplaywrightdemo",
+  "version": "1.0.0",
+  "scripts": {
+    "test-gdt": "npx cucumber-js --tags '@launch' --require tests/steps/*.ts --require-module ts-node/register --format @cucumber/pretty-formatter tests/features/*.feature",
+    "test-marvel": "npx cucumber-js --tags '@marvel' --require tests/steps/*.ts --require-module ts-node/register --format @cucumber/pretty-formatter tests/features/*.feature"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.2.0",
+    "@cucumber/pretty-formatter": "^1.0.1",
+    "@playwright/test": "^1.49.1",
+    "@types/axios": "^0.9.36",
+    "@types/luxon": "^3.4.2",
+    "@types/md5": "^2.3.5",
+    "@types/node": "^22.10.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "@types/node-fetch": "^2.6.12",
+    "axios": "^1.7.9",
+    "chai": "^5.1.2",
+    "gdtplaywrightdemo": "file:",
+    "md5": "^2.3.0",
+    "node-fetch": "^3.3.2",
+    "playwright": "^1.49.1"
+  },
+  "main": "cucumber.js",
+  "directories": {
+    "test": "tests"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
