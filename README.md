@@ -56,7 +56,9 @@ The project is organized as follows:
 │   └── suncorphomePage.feature          # Cucumber feature file  
 ├── steps/  
 │   └── suncorphomePageStep.ts           # Step definitions  
-├── cucumber.js                          # TypeScript config for Cucumber  
+|-  pages
+├── cucumber.js                          # TypeScript config for Cucumber
+
 ├── playwright.config.ts                 # Playwright config file  
 ├── package.json                         # Project dependencies and scripts  
 ├── README.md                            # Documentation  
@@ -75,7 +77,7 @@ npx cucumber-js
 ### 7. Run Specific Scenarios with Tags
 For example, to run scenarios tagged with `@freeze`:  
 ```bash
-npx cucumber-js --tags "@freeze" --require tests/steps/*.ts --require-module ts-node/register --format @cucumber/pretty-formatter tests/features/*.feature  
+npx cucumber-js --format allure-cucumberjs/reporter --tags "@suncorplaunch" --require tests/steps/*.ts --require-module ts-node/register tests/features/*.feature  
 ```
 
 ---
