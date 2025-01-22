@@ -19,7 +19,8 @@ Follow these instructions to set up and run the project locally.
 ### 1. Clone the Repository
 Clone the repository to your local machine:  
 ```bash
-
+git clone https://github.com/shikhanz2018/PlaywrightDemo
+cd PlaywrightDemo
 ```
 
 ### 2. Install Dependencies
