@@ -1,10 +1,10 @@
 module.exports = {
   default: {
-    require: ['tests/steps/*.ts'], // Include step definitions
+    require: ['tests/steps/*.ts', 'support/hooks.ts'], // Include step definitions and hooks
     paths: ['tests/features/*.feature'], // Path to feature files
-    format: [
-      '@cucumber/pretty-formatter', // To pretty print output
-      'allure-cucumberjs/reporter' // Allure reporter for Cucumber
+    "format": [
+      "allure-cucumberjs/reporter",
+      "node_modules/cucumber-allure-formatter",
     ],
     parallel: 1,
     requireModule: ['ts-node/register'], // Use ts-node to transpile TypeScript

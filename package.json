@@ -1,5 +1,5 @@
 {
-  "name": "gdtplaywrightdemo",
+  "name": "playwrightdemo",
   "version": "1.0.0",
   "scripts": {
     "test": "npx cucumber-js --format allure-cucumberjs/reporter",
@@ -19,6 +19,8 @@
     "@types/node": "^22.10.7",
     "allure-commandline": "^2.32.0",
     "allure-cucumberjs": "^3.0.9",
+    "allure-js-commons": "^3.0.9",
+    "allure-playwright": "^3.0.9",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   },
@@ -27,9 +29,11 @@
     "axios": "^1.7.9",
     "chai": "^5.1.2",
     "gdtplaywrightdemo": "file:",
+    "gdtpplaywrightdemo": "file:",
     "md5": "^2.3.0",
     "node-fetch": "^3.3.2",
-    "playwright": "^1.49.1"
+    "playwright": "^1.49.1",
+    "playwrightdemo": "file:"
   },
   "main": "cucumber.js",
   "directories": {

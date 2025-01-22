@@ -1,4 +1,4 @@
-# Marvelautomation
+# PlaywrightDemo
 
 **Playwright-Cucumber Testing Framework**  
 A robust end-to-end testing framework using Playwright and Cucumber. This setup provides a behavior-driven development (BDD) approach for testing modern web applications.  
@@ -19,8 +19,7 @@ Follow these instructions to set up and run the project locally.
 ### 1. Clone the Repository
 Clone the repository to your local machine:  
 ```bash
-git clone https://github.com/shikhanz2018/Marvelautomation.git  
-cd Marvelautomation  
+
 ```
 
 ### 2. Install Dependencies
@@ -106,7 +105,7 @@ Alternatively, specify the formatter via the CLI:
 npx cucumber-js --format allure-cucumberjs/reporter  
 ```
 
-npx cucumber-js  --format allure-cucumberjs/reporter --tags "@visibles" --require tests/steps/*.ts --require-module ts-node/register --format @cucumber/pretty-formatter tests/features/*.feature
+npx cucumber-js --format allure-cucumberjs/reporter --tags "@suncorplaunch" --require tests/steps/*.ts --require-module ts-node/register tests/features/*.feature
 
 When the test run completes, the result files will be generated in the `./allure-results` directory.  
 
