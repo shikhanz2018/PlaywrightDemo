@@ -53,9 +53,9 @@ The project is organized as follows:
 ```plaintext
 .tests/  
 ├── features/  
-│   └── marvelDashBoard.feature          # Cucumber feature file  
+│   └── suncorphomePage.feature          # Cucumber feature file  
 ├── steps/  
-│   └── marvelautomatedstep.ts           # Step definitions  
+│   └── suncorphomePageStep.ts           # Step definitions  
 ├── cucumber.js                          # TypeScript config for Cucumber  
 ├── playwright.config.ts                 # Playwright config file  
 ├── package.json                         # Project dependencies and scripts  
